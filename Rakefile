@@ -1,9 +1,11 @@
 require "rspec/core/rake_task"
+require 'yaml'
 
 RSpec::Core::RakeTask.new(:spec)
 
+desc 'Create test DB needed to run rspec'
 task 'db:test:create' do
-  project_root = File.expand_path("../../", __FILE__)
+  project_root = File.expand_path("../", __FILE__)
   db_config = YAML.load_file("#{project_root}/config/database.yml")
 
   db_host = db_config['host']

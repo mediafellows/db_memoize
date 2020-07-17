@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require 'active_record'
 require 'database_cleaner'
 require 'factory_bot'
+require 'yaml'
 
 unless ENV['SKIP_COVERAGE']
   require 'simplecov'
