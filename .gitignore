@@ -1,5 +1,6 @@
-/Gemfile.lock
-/coverage/
-/pkg/
-/log/
+Gemfile.lock
+coverage/
+pkg/
+log/
 *.gem
+config/*.yml

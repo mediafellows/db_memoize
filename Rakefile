@@ -3,12 +3,9 @@ require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec)
 
 task 'db:test:create' do
-  db_password = ''
+  project_root = File.expand_path("../../", __FILE__)
 
-  if ENV['GITHUB_WORKFLOW']
-    db_password = 'postgres'
-  end
-
+  db_password = YAML.load_file("#{project_root}/config/database.yml")['password']
   Rake.sh "PGPASSWORD=#{db_password} dropdb db_memoize_test -h localhost -U postgres -w || true"
   Rake.sh "PGPASSWORD=#{db_password} createdb db_memoize_test -h localhost -U postgres -w"
 end

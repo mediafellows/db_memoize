@@ -16,12 +16,11 @@ end
 require "db_memoize"
 require './spec/support/bicycle'
 
-ActiveRecord::Base.establish_connection(
-  adapter: "postgresql",
-  database: "db_memoize_test",
-  host: "localhost",
-  port: 5432
-)
+
+project_root = File.expand_path("../../", __FILE__)
+db_config = YAML.load_file("#{project_root}/config/database.yml").symbolize_keys
+
+ActiveRecord::Base.establish_connection(db_config)
 
 load File.dirname(__FILE__) + '/schema.rb'
 

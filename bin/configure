@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+db_password = ''
+db_password = 'postgres' if ENV['GITHUB_WORKFLOW']
+
+CONFIG_VARS = {
+ 'db_pass' => db_password,
+}
+
+project_root = File.expand_path("../../", __FILE__)
+
+Dir.glob("#{project_root}/config/samples/*.{yml,rb,xml}").each do |file_path|
+  file_name = file_path.split('/').last
+  if ARGV[0] == 'clean' || !File.exists?("#{project_root}/config/#{file_name}")
+    puts "== Creating #{file_name} =="
+    template = File.read(file_path)
+    config = template.gsub(/{{([^}]+)}}/){ CONFIG_VARS.fetch($1.strip) }
+    File.write("#{project_root}/config/#{file_name}", config)
+  end
+end
