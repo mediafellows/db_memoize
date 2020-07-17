@@ -39,6 +39,11 @@ jobs:
       - name: Run Rubocop linting
         run: bundle exec rubocop --parallel --color
 
+      - name: Run bin/configure
+        run: |
+          bin/configure
+          cat config/database.yml
+
       - name: Prepare test DB
         run: bundle exec rake db:test:create
 

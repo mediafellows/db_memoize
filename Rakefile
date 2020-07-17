@@ -4,10 +4,15 @@ RSpec::Core::RakeTask.new(:spec)
 
 task 'db:test:create' do
   project_root = File.expand_path("../../", __FILE__)
+  db_config = YAML.load_file("#{project_root}/config/database.yml")
 
-  db_password = YAML.load_file("#{project_root}/config/database.yml")['password']
-  Rake.sh "PGPASSWORD=#{db_password} dropdb db_memoize_test -h localhost -U postgres -w || true"
-  Rake.sh "PGPASSWORD=#{db_password} createdb db_memoize_test -h localhost -U postgres -w"
+  db_host = db_config['host']
+  db_name = db_config['database']
+  db_user = db_config['username']
+  db_password = db_config['password']
+
+  Rake.sh "PGPASSWORD=#{db_password} dropdb #{db_name} -h #{db_host} -U #{db_user} -w || true"
+  Rake.sh "PGPASSWORD=#{db_password} createdb #{db_name} -h #{db_host} -U #{db_user} -w"
 end
 
 task :default => %w(db:test:create spec)
