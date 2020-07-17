@@ -3,11 +3,14 @@ require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec)
 
 task 'db:test:create' do
+  db_password = ''
+
   if ENV['GITHUB_WORKFLOW']
-    ENV['PGPASSWORD'] = 'postgres'
+    db_password = 'postgres'
   end
-  Rake.sh 'dropdb db_memoize_test -U postgres || true'
-  Rake.sh 'createdb db_memoize_test -U postgres'
+
+  Rake.sh "PGPASSWORD=#{db_password} dropdb db_memoize_test -h localhost -U postgres -w || true"
+  Rake.sh "PGPASSWORD=#{db_password} createdb db_memoize_test -h localhost -U postgres -w"
 end
 
 task :default => %w(db:test:create spec)
