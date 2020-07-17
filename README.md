@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.com/mediapeers/db_memoize.svg?branch=master)](https://travis-ci.com/mediapeers/db_memoize)
 
 # db_memoize
 A library to cache (memoize) return values of methods in the database.
