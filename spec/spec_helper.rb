@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require 'active_record'
 require 'database_cleaner'
 require 'factory_bot'
+require 'yaml'
 
 unless ENV['SKIP_COVERAGE']
   require 'simplecov'
@@ -16,7 +17,11 @@ end
 require "db_memoize"
 require './spec/support/bicycle'
 
-ActiveRecord::Base.establish_connection adapter: "postgresql", database: "db_memoize_test"
+
+project_root = File.expand_path("../../", __FILE__)
+db_config = YAML.load_file("#{project_root}/config/database.yml").symbolize_keys
+
+ActiveRecord::Base.establish_connection(db_config)
 
 load File.dirname(__FILE__) + '/schema.rb'
 

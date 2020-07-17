@@ -80,8 +80,8 @@ sys! "gem build #{GEMSPEC}"
 sys! "git push origin #{$BASE_BRANCH}"
 sys! 'git push --tags --force'
 
-# sys! "bundle exec fury push #{Dir.glob('*.gem').first} --as mediapeers"
-sys! "gem push #{Dir.glob('*.gem').first}"
+gem_file = Dir.glob('*.gem').sort.last
+sys! "gem push --key github --host https://rubygems.pkg.github.com/mediafellows #{gem_file}"
 
 sys! "mkdir -p pkg"
 sys! "mv *.gem pkg"

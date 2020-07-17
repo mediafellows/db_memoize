@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/mediapeers/db_memoize.svg?branch=master)](https://travis-ci.com/mediapeers/db_memoize)
+[![Ruby Build](https://github.com/mediafellows/db_memoize/workflows/Ruby%20Build/badge.svg)](https://github.com/mediafellows/db_memoize/actions?query=workflow%3A%22Ruby+Build%22)
 
 # db_memoize
 A library to cache (memoize) return values of methods in the database.
