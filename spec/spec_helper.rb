@@ -16,7 +16,12 @@ end
 require "db_memoize"
 require './spec/support/bicycle'
 
-ActiveRecord::Base.establish_connection adapter: "postgresql", database: "db_memoize_test"
+ActiveRecord::Base.establish_connection(
+  adapter: "postgresql",
+  database: "db_memoize_test",
+  host: "localhost",
+  port: 5432
+)
 
 load File.dirname(__FILE__) + '/schema.rb'
 
